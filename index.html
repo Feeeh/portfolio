@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feeeh — Portfolio</title>
+    <meta name="description" content="Portfolio of Feeeh — software developer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abel&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="font-body text-zinc-300 antialiased">
+    <!-- ============ NAV ============ -->
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a href="#hero" class="font-pixel text-xs text-accent">&lt;Feeeh /&gt;</a>
+
+        <button
+          id="nav-toggle"
+          class="text-zinc-300 md:hidden"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <ul
+          id="nav-menu"
+          class="absolute left-0 top-full hidden w-full flex-col gap-4 border-b border-white/10 bg-black/90 px-4 py-4 text-sm md:static md:flex md:w-auto md:flex-row md:gap-8 md:border-0 md:bg-transparent md:p-0"
+        >
+          <li><a class="nav-link" href="#hero">Home</a></li>
+          <li><a class="nav-link" href="#introduction">Introduction</a></li>
+          <li><a class="nav-link" href="#education">Education</a></li>
+          <li><a class="nav-link" href="#projects">Projects</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section id="hero" class="flex min-h-screen flex-col items-center justify-center px-4 text-center">
+        <p class="font-pixel mb-6 text-xs text-accent">Hello, world! I am</p>
+        <h1 class="font-pixel mb-6 text-3xl leading-relaxed text-white md:text-5xl">Feeeh</h1>
+        <p class="max-w-xl text-lg text-zinc-400 md:text-xl">
+          Software developer building things for the web, games and everything in between.
+        </p>
+        <a
+          href="#projects"
+          class="font-pixel mt-10 inline-block border-2 border-accent px-6 py-4 text-xs text-accent transition hover:bg-accent hover:text-black"
+        >
+          View my work ▸
+        </a>
+      </section>
+
+      <!-- ============ INTRODUCTION ============ -->
+      <section id="introduction" class="section">
+        <h2 class="section-title">Introduction</h2>
+        <div class="mx-auto max-w-3xl space-y-4 text-lg leading-relaxed text-zinc-400">
+          <p>
+            <!-- EDIT: write your own introduction here -->
+            I'm a developer from Brazil who loves turning ideas into working software. Over the
+            years I've built educational platforms, AI-powered tools, game-server plugins and
+            full-stack web applications.
+          </p>
+          <p>
+            My main stack revolves around <span class="hl">TypeScript</span>,
+            <span class="hl">C#</span> and <span class="hl">Java</span>, but I enjoy picking the
+            right tool for each job. Below you can find where I studied and a selection of
+            projects I'm proud of.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ EDUCATION ============ -->
+      <section id="education" class="section">
+        <h2 class="section-title">Education</h2>
+        <ol class="mx-auto max-w-3xl space-y-8 border-l-2 border-accent/40 pl-6">
+          <!-- EDIT: replace with your real education entries -->
+          <li class="timeline-item">
+            <h3 class="text-xl text-white">B.Sc. Computer Science</h3>
+            <p class="font-pixel my-1 text-[10px] text-accent">2021 — 2025</p>
+            <p class="text-zinc-400">University name here — relevant coursework, honors, activities.</p>
+          </li>
+          <li class="timeline-item">
+            <h3 class="text-xl text-white">Technical Course in Software Development</h3>
+            <p class="font-pixel my-1 text-[10px] text-accent">2018 — 2020</p>
+            <p class="text-zinc-400">Institution name here — what you learned and built.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ============ PROJECTS (rendered by TS) ============ -->
+      <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <div id="projects-root" class="mx-auto max-w-6xl space-y-16"></div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 py-8 text-center text-sm text-zinc-500">
+      <p>© 2026 Feeeh — built with Vite, TypeScript &amp; Tailwind</p>
+    </footer>
+
+    <!-- ============ PROJECT MODAL ============ -->
+    <div
+      id="modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="relative flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-accent/40 bg-[#14061c] lg:flex-row">
+        <button id="modal-close" class="absolute right-3 top-3 z-10 text-2xl text-zinc-400 transition hover:text-accent" aria-label="Close">
+          ✕
+        </button>
+
+        <!-- Carousel -->
+        <div class="relative flex h-1/2 items-center overflow-hidden bg-black/40 lg:h-full lg:w-3/5">
+          <div id="carousel-track" class="flex h-full w-full transition-transform duration-300"></div>
+          <button id="carousel-prev" class="carousel-btn left-2" aria-label="Previous image">‹</button>
+          <button id="carousel-next" class="carousel-btn right-2" aria-label="Next image">›</button>
+          <div id="carousel-dots" class="absolute bottom-3 flex w-full justify-center gap-2"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <p id="modal-category" class="font-pixel mb-3 text-[10px] text-accent"></p>
+          <h3 id="modal-title" class="mb-4 text-3xl text-white"></h3>
+          <div id="modal-description" class="space-y-3 leading-relaxed text-zinc-400"></div>
+          <div id="modal-tech" class="mt-6 flex flex-wrap gap-2"></div>
+          <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer"
+             class="font-pixel mt-8 hidden text-[10px] text-accent underline underline-offset-4 hover:text-white">
+            Visit project ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
