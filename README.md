@@ -2,7 +2,7 @@
 
 Personal single-page portfolio website — dark themed, pixel-art accents, animated gradient background.
 
-Built with [Vite](https://vite.dev), TypeScript, [Tailwind CSS v4](https://tailwindcss.com) and SCSS. The only runtime dependency is [Blob](https://github.com/Feeeh/blob), the soft-body virtual guide, consumed as `"blob": "file:../../blob"` — the blob repo must be checked out as a sibling (`<root>/blob` next to `<root>/website/portfolio`) with its committed `dist/` present (run `npm run build` there after changing its source).
+Built with [Vite](https://vite.dev), TypeScript, [Tailwind CSS v4](https://tailwindcss.com) and SCSS. The only runtime dependency is [Blob](https://github.com/Feeeh/blob), the soft-body virtual guide, pinned as a git dependency (`"blob": "github:Feeeh/blob#<commit>"`) so CI/CD hosts can install it without a sibling checkout. After changing blob: build it (`npm run build`), commit `dist/`, push, and bump the pinned commit here. For local blob hacking, `npm install ../../blob --no-save` temporarily symlinks the sibling checkout.
 
 ## Sections
 
