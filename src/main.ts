@@ -1,6 +1,23 @@
 import "./styles/tailwind.css";
 import "./styles/main.scss";
-import { categories, projects, type Project } from "./projects";
+import { categories, projects, type Lang, type Project } from "./projects";
+import { initBlobGuide } from "./blob-guide";
+
+// Locale comes from the page itself (index.html = en, pt.html = pt-BR);
+// the redirect logic lives inline in each page's <head>.
+const lang: Lang = document.documentElement.lang.toLowerCase().startsWith("pt") ? "pt" : "en";
+
+// ---------- Language switcher (flags) ----------
+// Persist the choice so the head redirect script respects it on every page.
+document.querySelectorAll<HTMLAnchorElement>("[data-lang]").forEach((el) => {
+  el.addEventListener("click", () => {
+    try {
+      localStorage.setItem("lang", el.dataset.lang!);
+    } catch {
+      // Storage blocked — navigation still works, the choice just isn't persisted.
+    }
+  });
+});
 
 // ---------- Mobile nav ----------
 const navToggle = document.getElementById("nav-toggle")!;
@@ -31,7 +48,7 @@ for (const category of categories) {
   const section = document.createElement("div");
   section.innerHTML = `
     <h3 class="font-pixel mb-2 text-sm text-accent">${category.label}</h3>
-    <p class="mb-6 text-zinc-500">${category.blurb}</p>
+    <p class="mb-6 text-zinc-500">${category.blurb[lang]}</p>
     <div class="grid gap-6 ${single ? "" : "sm:grid-cols-2 lg:grid-cols-3"}"></div>
   `;
   const grid = section.querySelector("div.grid")!;
@@ -45,14 +62,14 @@ for (const category of categories) {
       <img src="${project.images[0]}" alt="${project.title}" loading="lazy" class="aspect-video w-full object-cover md:w-3/5" />
       <div class="flex flex-col justify-center p-6 md:p-10">
         <h4 class="mb-3 text-2xl text-white md:text-3xl">${project.title}</h4>
-        <p class="text-lg text-zinc-400">${project.summary}</p>
+        <p class="text-lg text-zinc-400">${project.summary[lang]}</p>
       </div>
     `
       : `
       <img src="${project.images[0]}" alt="${project.title}" loading="lazy" class="aspect-video w-full object-cover" />
       <div class="p-4">
         <h4 class="mb-1 text-lg text-white">${project.title}</h4>
-        <p class="text-sm text-zinc-400">${project.summary}</p>
+        <p class="text-sm text-zinc-400">${project.summary[lang]}</p>
       </div>
     `;
     card.addEventListener("click", () => openModal(project));
@@ -75,6 +92,9 @@ const dots = document.getElementById("carousel-dots")!;
 
 let slideCount = 0;
 let slideIndex = 0;
+// The dialog is aria-modal: focus must move into it on open (it can open
+// without a click — Blob's tour does) and back out on close.
+let lastFocus: HTMLElement | null = null;
 
 function showSlide(index: number): void {
   slideIndex = (index + slideCount) % slideCount;
@@ -89,7 +109,7 @@ function openModal(project: Project): void {
   modalTitle.textContent = project.title;
 
   modalDescription.replaceChildren(
-    ...project.description.map((text) => {
+    ...project.description[lang].map((text) => {
       const p = document.createElement("p");
       p.textContent = text;
       return p;
@@ -137,12 +157,17 @@ function openModal(project: Project): void {
   modal.classList.remove("hidden");
   modal.classList.add("flex");
   document.body.classList.add("modal-open");
+  lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  modalClose.focus();
 }
 
 function closeModal(): void {
+  if (modal.classList.contains("hidden")) return;
   modal.classList.add("hidden");
   modal.classList.remove("flex");
   document.body.classList.remove("modal-open");
+  lastFocus?.focus();
+  lastFocus = null;
 }
 
 modalClose.addEventListener("click", closeModal);
@@ -157,4 +182,14 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
   if (e.key === "ArrowLeft") showSlide(slideIndex - 1);
   if (e.key === "ArrowRight") showSlide(slideIndex + 1);
+});
+
+// ---------- Blob, the virtual guide ----------
+initBlobGuide({
+  lang,
+  openProject: (id) => {
+    const project = projects.find((p) => p.id === id);
+    if (project) openModal(project);
+  },
+  closeProject: closeModal,
 });

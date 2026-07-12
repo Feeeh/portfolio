@@ -68,6 +68,24 @@ section {
   }
 }
 
+// Language switcher flags
+.lang-flag {
+  display: inline-flex;
+  opacity: 0.4;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.active {
+    opacity: 1;
+    border-color: $accent;
+  }
+}
+
 .timeline-item {
   position: relative;
 
