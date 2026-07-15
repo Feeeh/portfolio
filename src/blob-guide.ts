@@ -121,6 +121,7 @@ export function initBlobGuide({ lang, openProject, closeProject }: GuideDeps): v
     // scroll them away (the browser's own fragment scroll would also be
     // misread as the visitor leaving the tour). Poking Blob still starts it.
     autoStart: window.location.hash === "",
+    glitch: true,
     storageKey: "feeeh-blob",
     labels: lang === "pt"
       ? { guide: "Blob, seu guia", dismiss: "Dispensar o Blob", restore: "Restaurar o Blob" }
