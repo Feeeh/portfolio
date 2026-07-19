@@ -16,6 +16,6 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
-    "blob": "github:Feeeh/blob#765124f"
+    "blob": "github:Feeeh/blob#208a501"
   }
 }
