@@ -87,6 +87,7 @@ const modalTitle = document.getElementById("modal-title")!;
 const modalDescription = document.getElementById("modal-description")!;
 const modalTech = document.getElementById("modal-tech")!;
 const modalLink = document.getElementById("modal-link") as HTMLAnchorElement;
+const modalRepo = document.getElementById("modal-repo") as HTMLAnchorElement;
 const track = document.getElementById("carousel-track")!;
 const dots = document.getElementById("carousel-dots")!;
 
@@ -102,6 +103,11 @@ function showSlide(index: number): void {
   dots.querySelectorAll(".carousel-dot").forEach((dot, i) => {
     dot.classList.toggle("active", i === slideIndex);
   });
+}
+
+function setLink(anchor: HTMLAnchorElement, url: string | undefined): void {
+  if (url) anchor.href = url;
+  anchor.classList.toggle("hidden", !url);
 }
 
 function openModal(project: Project): void {
@@ -125,12 +131,8 @@ function openModal(project: Project): void {
     }),
   );
 
-  if (project.link) {
-    modalLink.href = project.link;
-    modalLink.classList.remove("hidden");
-  } else {
-    modalLink.classList.add("hidden");
-  }
+  setLink(modalLink, project.link);
+  setLink(modalRepo, project.repo);
 
   track.replaceChildren(
     ...project.images.map((src) => {

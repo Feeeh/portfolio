@@ -19,9 +19,10 @@ export interface Project {
   tech: string[];
   images: string[];
   link?: string;
+  repo?: string;
 }
 
-export type CategoryId = "sesi" | "ia-kiko" | "scb" | "cashbackhub";
+export type CategoryId = "sesi" | "ia-kiko" | "glitchkid" | "scb" | "cashbackhub";
 
 export interface Category {
   id: CategoryId;
@@ -44,6 +45,14 @@ export const categories: Category[] = [
     blurb: {
       en: "AI storytelling platform for children — co-founder.",
       pt: "Plataforma de histórias com IA para crianças — cofundador.",
+    },
+  },
+  {
+    id: "glitchkid",
+    label: "glitchk.id",
+    blurb: {
+      en: "Personal projects I build and ship under my glitchk.id label.",
+      pt: "Projetos pessoais que desenvolvo e publico sob o selo glitchk.id.",
     },
   },
   {
@@ -206,6 +215,57 @@ export const projects: Project[] = [
     ],
     images: ["/img/projects/ia-kiko.webp"],
     link: "https://iakiko.com.br/",
+  },
+
+  // ---------- glitchk.id ----------
+  {
+    id: "live",
+    title: "Live — watch together",
+    category: "glitchkid",
+    summary: {
+      en: "Watch-together rooms where everyone can stream their screen and camera and talk at once.",
+      pt: "Salas para assistir junto, em que todos transmitem tela e câmera e conversam ao mesmo tempo.",
+    },
+    description: {
+      en: [
+        "Create a room, share the code, and everyone in it can stream their screen (with system audio), their camera and their microphone at the same time — no account needed. Video and audio travel directly between browsers over a WebRTC mesh; the server only hands out room codes and relays signaling and chat.",
+        "Built with ASP.NET Core MVC (.NET 10) and SignalR, plain JavaScript on the front end and SQL Server for optional accounts. It has quality presets, per-viewer resolution limits, grid/spotlight/theater layouts, push-to-talk, text chat with reactions, live connection stats, Cloudflare TURN relays and full mobile support.",
+        "Admins and moderators get permission groups, in-room moderation (remove, ban, IP-ban, mute per feature) and an admin page. Rate limiting protects room codes, and LGPD compliance covers consent, data export and account deletion. Deployed to Azure App Service via GitHub Actions, in English and Brazilian Portuguese.",
+      ],
+      pt: [
+        "Crie uma sala, compartilhe o código e todos dentro dela podem transmitir a tela (com o áudio do sistema), a câmera e o microfone ao mesmo tempo — sem precisar de conta. Vídeo e áudio trafegam direto entre os navegadores numa malha WebRTC; o servidor apenas distribui os códigos das salas e repassa a sinalização e o chat.",
+        "Feito com ASP.NET Core MVC (.NET 10) e SignalR, JavaScript puro no front-end e SQL Server para as contas opcionais. Tem presets de qualidade, resolução limitada ao tamanho exibido por cada espectador, layouts em grade/destaque/teatro, push-to-talk, chat com reações, estatísticas de conexão ao vivo, relays TURN da Cloudflare e suporte completo a celulares.",
+        "Administradores e moderadores contam com grupos de permissões, moderação dentro da sala (remover, banir, banir IP, desativar cada recurso) e uma página de administração. Rate limiting protege os códigos das salas, e a conformidade com a LGPD cobre consentimento, exportação de dados e exclusão de conta. Deploy no Azure App Service via GitHub Actions, em inglês e português.",
+      ],
+    },
+    tech: ["C#", ".NET 10", "ASP.NET Core MVC", "SignalR", "WebRTC", "JavaScript", "SQL Server", "Azure", "GitHub Actions"],
+    images: ["/img/projects/live.webp"],
+    link: "https://live.glitchk.id/",
+  },
+  {
+    id: "kotoba-keep",
+    title: "Kotoba Keep",
+    category: "glitchkid",
+    summary: {
+      en: "Minecraft mod that teaches Japanese: say an item's name out loud to keep it.",
+      pt: "Mod de Minecraft que ensina japonês: diga o nome do item em voz alta para ficar com ele.",
+    },
+    description: {
+      en: [
+        "Say it to keep it. A Minecraft Fabric mod that teaches the original Japanese names of items, blocks and mobs: pick something up and a panel shows its name with furigana, romaji and its meaning in your language — say it into your microphone before the timer ends to keep the item, or lose it.",
+        "Speech recognition runs fully offline with Vosk through the Simple Voice Chat API, furigana come from Kuromoji, and every vanilla name is pre-recorded with a VOICEVOX voice, with pitch-accent marks drawn from the same data. Hints fade as you learn, and reviews follow growing spaced-repetition gaps.",
+        "It also includes mob challenges that lock their drops, a word book (単語帳), an in-game settings screen and multiplayer support with server-side validation. Published on CurseForge.",
+      ],
+      pt: [
+        "Diga para ficar. Um mod Fabric de Minecraft que ensina os nomes originais em japonês de itens, blocos e mobs: ao pegar algo, um painel mostra o nome com furigana, romaji e o significado no seu idioma — diga-o no microfone antes do tempo acabar para ficar com o item, ou perca-o.",
+        "O reconhecimento de voz roda totalmente offline com o Vosk pela API do Simple Voice Chat, o furigana vem do Kuromoji e cada nome do jogo base é pré-gravado com uma voz do VOICEVOX, com marcas de acento tonal tiradas dos mesmos dados. As dicas somem conforme você aprende, e as revisões seguem intervalos crescentes de repetição espaçada.",
+        "Inclui ainda desafios de mobs que travam os drops, um caderno de palavras (単語帳), uma tela de configurações no jogo e suporte a multiplayer com validação no servidor. Publicado no CurseForge.",
+      ],
+    },
+    tech: ["Java 25", "Fabric", "Minecraft 26.3", "Gradle", "Vosk", "Kuromoji", "VOICEVOX", "Simple Voice Chat API"],
+    images: ["/img/projects/kotoba-keep-banner.webp", "/img/projects/kotoba-keep-hud.webp"],
+    link: "https://www.curseforge.com/minecraft/mc-mods/kotoba-keep",
+    repo: "https://github.com/Feeeh/Kotoba-Keep",
   },
 
   // ---------- Survival Craft Brasil ----------
